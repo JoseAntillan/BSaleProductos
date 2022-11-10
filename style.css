@@ -1,0 +1,109 @@
+/*FUENTE*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
+.buy{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.btnbuy{
+background-color: rgb(241, 122, 11);
+color: rgb(253, 255, 255);
+
+}
+
+.btnbuy:hover{
+    background-color:  rgba(13, 152, 227, 0.829);
+    color:rgb(255, 252, 249);
+}
+
+
+.product-inner-box .onsale .badge{
+background: rgb(241, 122, 11);
+font-size: 25px;
+color: rgb(255, 255, 255);
+padding: 5px 14px;
+top: 0px;
+position: absolute;
+}
+
+
+    .product-inner-box .onsale .badge:after{
+
+    border-width: 58px 9px 10px 20px;
+    border-color: rgb(241, 122, 11) transparent transparent;
+    content: "";
+    position: absolute;
+    right: -8px;
+    top: 0;
+    border-style: solid;
+    }
+    
+    .product-inner-box img{
+      
+        height: 400px;
+        width: 100%;
+        object-fit: cover;
+        
+    }
+
+
+    
+
+
+
+.product-information{
+    text-align: center;
+}
+
+.PreviusPrice{
+    color: red;
+}
+
+
+
+
+
+
+
+.btn-group-vertical{
+    background-color: rgb(241, 122, 11);
+    border-radius: 2%;
+}
+
+
+
+
+
+.btn-outline-danger{
+    background-color: rgb(241, 122, 11);
+    --bs-btn-color:rgb(255, 255, 255);
+    --bs-btn-border-color:rgba(13, 152, 227, 0);
+    --bs-btn-hover-color:#fff;
+    --bs-btn-hover-bg:rgba(13, 152, 227, 0.829);
+    --bs-btn-hover-border-color:rgba(13, 152, 227, 0.829);
+    --bs-btn-focus-shadow-rgb:220,53,69;
+    --bs-btn-active-color:#fff;
+    --bs-btn-active-bg:rgba(13, 152, 227, 0.829);
+    --bs-btn-active-border-color:rgba(13, 152, 227, 0.829);
+    --bs-btn-active-shadow:inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color:rgba(13, 152, 227, 0.829);
+    --bs-btn-disabled-bg:transparent;
+    --bs-btn-disabled-border-color:rgba(13, 152, 227, 0.829);
+    --bs-gradient:none
+}
+
+
+
+.navbar{
+    background-color: rgb(241, 122, 11);
+
+}
