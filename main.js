@@ -1,94 +1,39 @@
 let URLpeticiones = "https://desafio-bsale-api.herokuapp.com";
 
+//listar todos los productos
+  ListarProductos(0);
 
-
-
-  //ListarProducto();
+//ListarCategoriasCheckbox();
   ListarTodasCategorias();
-  
-  fetch(URLpeticiones+"/productos")
-  .then(res=> res.json())
-  .then(productos=>{
- 
-      
-    //console.log(productos.Productos[0]);
-
-    
-    for (let index = 0; index < productos.Productos.length; index++) {
-        ListarProducto(productos.Productos[index]);
-       }
-
-
-  })
-
-  let a = "Bebida Sprite 1 Lt"
-  let len = a.length;
-  console.log(len);
 
 
 
 
-
-
-
-
+/*------------------------------FUNCIONES PRODUCTO------------
 
 /**  
-*Listar todas las categorias
+*Listar todos los productos
+*@param {number} categoria - id de la categoria, si es 0 se listaran todos los productos
 */ 
-function ListarTodasCategorias(){
+function ListarProductos(categoria){
+    let endpoint = URLpeticiones;
 
-    fetch(URLpeticiones+"/categorias")
+    if(categoria==0){
+        endpoint+="/productos"
+    }
+    else{
+        endpoint+="/categorias/"+categoria+"/listarproductos"
+    }
+
+
+    fetch(endpoint)
     .then(res=> res.json())
-    .then(categorias=>{
-   
-        
-        //crear la categoria "todos los productos", true para dejar que sea la opcion elegida por defecto
-        ListarCategoria(0,"Todos los productos",true);
-
-
-        //recorrer las categorias para agregarlas a la lista
-       for (let index = 0; index < categorias.Categorias.length; index++) {
-        ListarCategoria(categorias.Categorias[index].id,categorias.Categorias[index].name,false);
-       }
-
-       
-
-
+    .then(productos=>{
+      for (let index = 0; index < productos.Productos.length; index++) {
+          ListarProducto(productos.Productos[index]);
+         }
     })
-
 }
-
-
-/**  
-*Listar 1 categorias en el div id=ListaCategorias
-*@param {string} id - id de la categoria
-*@param {string} name - nombre de la categoria
-*@param {boolean} checked - si es true sera el radio seleccionado por defecto
-*/ 
-function ListarCategoria(id,name,checked){
-    let DivCategorias = document.getElementById("ListaCategorias"); 
-    let input1 = document.createElement("input");
-
-    input1.type="radio";
-    input1.className="btn-check";
-    input1.name="vbtn-radio";
-    input1.id="vbtn-radio"+id;
-    input1.autocomplete="off";
-    input1.value=id;
-    input1.checked =checked;
-
-    let labelCategoria = document.createElement("label");
-    labelCategoria.className="btn btn-outline-danger";
-    labelCategoria.htmlFor=input1.id;
-    labelCategoria.insertAdjacentText("beforeEnd",name);
-
-
-    DivCategorias.appendChild(input1);
-    DivCategorias.appendChild(labelCategoria);
-
-}
-
 
 /**  
 *Listar un producto en el div id=fila_productos
@@ -106,7 +51,7 @@ function ListarProducto(producto){
     estructura_producto.html, es un archivo guia de como esta formado el diseño HTML
     */ 
     let div1 = document.createElement("div");
-    div1.className="col-md-4 col-sm-6 .col-6";
+    div1.className=" col-md-4 col-sm-6 .col-6";
 
 
     let div2 = document.createElement("div");
@@ -224,5 +169,80 @@ function ListarProducto(producto){
     div1.appendChild(div2);
     
     DivRowProductos.appendChild(div1);
+
+}
+
+
+
+
+/*------------------------------FUNCIONES CATEGORIAS------------
+
+
+
+/**  
+*Listar todas las categorias
+*
+*/ 
+function ListarTodasCategorias(){
+    let endpoint = URLpeticiones + "/categorias";
+
+    fetch(endpoint)
+    .then(res=> res.json())
+    .then(categorias=>{ 
+        let TotalProductos=0;
+        //recorrer las categorias para agregarlas a la lista y contar la cantidad de productos que tiene cada categoria
+       for (let index = 0; index < categorias.Categorias.length; index++) {
+        ListarCategoria(categorias.Categorias[index].id,categorias.Categorias[index].name,false,categorias.Categorias[index].cantidad_productos);
+        TotalProductos += categorias.Categorias[index].cantidad_productos;
+       }
+        //crear la categoria "todos los productos", true para dejar que sea la opcion elegida por defecto
+        ListarCategoria(0,"Todos los productos",true,TotalProductos);
+        
+
+
+    })
+
+}
+
+/**  
+*Siempre que un checkbox de categoria cambie se lanza esta funcion para listar productos por categoria
+*/ 
+function Checkproductos(){
+    let Categoriaid = document.querySelector('input[name="vbtn-radio"]:checked').value;
+    let DivRowProductos = document.getElementById("fila_productos");
+
+    DivRowProductos.textContent = '';
+    ListarProductos(Categoriaid);
+}
+
+/**  
+*Listar 1 categorias en el div id=ListaCategoria
+*la lista de categorias quedara con checkbox, cada value de 1 checkbox contiene el id de la categoria en "value"
+*@param {string} id - id de la categoria
+*@param {string} name - nombre de la categoria
+*@param {boolean} checked - si es true sera el radio seleccionado por defecto
+*/ 
+function ListarCategoria(id,name,checked,CantidadProductos){
+    let DivCategorias = document.getElementById("ListaCategorias");
+    let input1 = document.createElement("input");
+
+    input1.type="radio";
+    input1.className="btn-check";
+    input1.name="vbtn-radio";
+    input1.id="vbtn-radio"+id;
+    input1.autocomplete="off";
+    input1.value=id;
+    input1.checked =checked;
+    input1.onclick=Checkproductos;
+
+    let labelCategoria = document.createElement("label");
+    labelCategoria.className="btn btn-outline-danger";
+    labelCategoria.htmlFor=input1.id;
+    labelCategoria.id="labelcategory"+id;
+    labelCategoria.insertAdjacentHTML("beforeEnd","<h6>"+name+"</h6>"+"("+CantidadProductos+" productos)");
+
+
+    DivCategorias.appendChild(input1);
+    DivCategorias.appendChild(labelCategoria);
 
 }
