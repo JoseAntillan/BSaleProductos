@@ -31,14 +31,17 @@
 
         <div class="row">
             
-          
-              
+                
             <div class="col-md-3 col-sm-4">
                     <div class="card searchcard"> 
                         <div class=""> 
                             <div class="search"> 
-                                <input type="text" class="search-input" placeholder="¿Que buscas?" name=""> 
-                                <a href="#" class="search-icon btn"> <i class="fa fa-search"></i> </a> 
+                              <form action="" method="get" id="formsearch">
+                                <input type="text" class="search-input" placeholder="¿Que buscas?" name="filtro" id="buscador"> 
+                                <button type="submit" form="formsearch"class="search-icon btn" id="buscadorref"> <i class="fa fa-search"></i> </a>
+
+                                
+                              </form>
                             </div> 
                         </div> 
                     </div>
@@ -48,8 +51,9 @@
                 <!-- estructura categorias -->
             </div>
             
-            <div class="col-md-9 col-sm-8">
-                <div class="row" id="fila_productos">            
+            <div class="col-md-9 col-sm-8" id="divfilaproductos">  
+                <div class="row" id="fila_productos">   
+                          
                 </div>
             </div>
 

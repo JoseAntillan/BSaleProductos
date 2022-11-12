@@ -1,7 +1,20 @@
 let URLpeticiones = "https://desafio-bsale-api.herokuapp.com";
+//preguntar si en la url viene el filtro para busqueda, si es asi listamos con el filtro
+let queryStrings = new URLSearchParams(window.location.search);
+let parametrosGet = Object.fromEntries(queryStrings.entries());
 
-//listar todos los productos
-  ListarProductos(0);
+//si el parametro filtro existe y es distinto de "" buscara los productos
+//si no es asi litara todos los productos
+if (parametrosGet && parametrosGet.filtro.trim() !="" ){
+    BuscarProductos(parametrosGet.filtro);
+    
+}
+
+else{
+    //listar todos los productos
+    ListarProductos(0);
+}
+
 
 //ListarCategoriasCheckbox();
   ListarTodasCategorias();
@@ -35,8 +48,52 @@ function ListarProductos(categoria){
     })
 }
 
+
+
+/**  
+*buscar productos
+*@param {string} filtro - filtro para buscar productos, los datos llegan filtrados desde la api
+*/ 
+function BuscarProductos(filtro){
+    let endpoint = URLpeticiones;
+    endpoint+="/productos?busqueda="+filtro
+
+    //limpiar la fila de productos
+    let DivRowProductos = document.getElementById("fila_productos");
+    DivRowProductos.textContent = '';
+    
+    //llamamos a la api
+    fetch(endpoint)
+    .then(res=> res.json())
+    .then(productos=>{
+        //si la api nos devuleve 0 productos escribimos que no hubo coincidencia
+        //si devuelve por lo menos 1 escribimos la cantidad de productos encontrados 
+        if(productos.Productos.length<=0){
+            console.log("productos no encontrados")
+            DivRowProductos.insertAdjacentHTML("afterBegin","<h1>ningun producto contiene la palabra "+filtro+"</h1>");
+        }
+        else{
+            //listar productos 1 por 1
+            for (let index = 0; index < productos.Productos.length; index++) {
+                ListarProducto(productos.Productos[index]);
+               }
+               DivRowProductos.insertAdjacentHTML("afterBegin","<h1>"+productos.Productos.length+" productos encontrados!</h1>");
+
+        }
+
+
+    })
+}
+
+
+
+
+
+
+
 /**  
 *Listar un producto en el div id=fila_productos
+*@param {object} producto - entregamos el producto para listar
 */ 
 function ListarProducto(producto){
     let DivRowProductos = document.getElementById("fila_productos");
@@ -209,8 +266,8 @@ function ListarTodasCategorias(){
 */ 
 function Checkproductos(){
     let Categoriaid = document.querySelector('input[name="vbtn-radio"]:checked').value;
+    //limpiar la fila de productos
     let DivRowProductos = document.getElementById("fila_productos");
-
     DivRowProductos.textContent = '';
     ListarProductos(Categoriaid);
 }
@@ -221,6 +278,7 @@ function Checkproductos(){
 *@param {string} id - id de la categoria
 *@param {string} name - nombre de la categoria
 *@param {boolean} checked - si es true sera el radio seleccionado por defecto
+*@param {number} CantidadProductos - cantidad de productos que contiene la categoria
 */ 
 function ListarCategoria(id,name,checked,CantidadProductos){
     let DivCategorias = document.getElementById("ListaCategorias");
