@@ -5,11 +5,10 @@ let parametrosGet = Object.fromEntries(queryStrings.entries());
 
 //si el parametro filtro existe y es distinto de "" buscara los productos
 //si no es asi litara todos los productos
-if (parametrosGet && parametrosGet.filtro.trim() !="" ){
+if (parametrosGet.filtro){
     BuscarProductos(parametrosGet.filtro);
-    
 }
-
+    
 else{
     //listar todos los productos
     ListarProductos(0);
