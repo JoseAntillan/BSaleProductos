@@ -8,6 +8,7 @@ Sistema de compra de productos BSale, en el podemos interactuar de las siguiente
 - filtrar por categorias
 - buscar productos
 - imagenes que no fueron encontradas son reempalzadas por una imagen que indica que no esta disponible la imagen del producto
+
 ![image](https://user-images.githubusercontent.com/115590140/201492753-d65b96be-793c-4630-b8c8-d97214faf765.png)
 
 # Objetivo general
