@@ -24,7 +24,7 @@ Los objetivos específicos para lograr el objetivo general son los siguientes:
 - Realizar la funcion de poder buscar productos dentro de la aplicacion.
 
 # Tecnologías
-Esta aplicacion web obtiene los datos de productos y categorias desde la API https://github.com/JoseAntillan/DesafioBsaleApi 
+Esta aplicacion web obtiene los datos de productos y categorias desde la API [DesafioBsaleApi](https://desafio-bsale-api.herokuapp.com/) 
 Está construida con Vanilla JS para funcionalidades, html para la construccion de la web y css junto con la libreria Bootstrap para el diseño minimalista, este
 diseño esta enfocado en los colores de la marca y facil de entender para el usuario. Para el control de versiones se usó GIT, explicando cada cambio hecho en cada commit.
 
