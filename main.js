@@ -1,4 +1,4 @@
-let URLpeticiones = "https://desafio-bsale-api.herokuapp.com";
+let URLpeticiones = "https://desafiobsaleapi.onrender.com/";
 //preguntar si en la url viene el filtro para busqueda, si es asi listamos con el filtro
 let queryStrings = new URLSearchParams(window.location.search);
 let parametrosGet = Object.fromEntries(queryStrings.entries());
